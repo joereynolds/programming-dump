@@ -9,7 +9,7 @@ For example, if the first range of integers is [90,99] and the second is [90,99]
 there is at least one palindrome because 91 x 99 = 9009, which is read the same forward and backward.
 Thus, "91, 99" should br printed.
 
-
+========
 Solution
 ========
 

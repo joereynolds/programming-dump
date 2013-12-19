@@ -1,4 +1,5 @@
-##Description
+Description
+===========
 
 
 A palindrome is a string of characters that are read the same way both ways (forward and backwards). Given two range of integers (a_start, a_end and b_start, b_end), if at least one of the products between the two ranges is a palindrome, print the integer-pair.
@@ -19,8 +20,8 @@ Sample Inputs & Outputs:
 Let a_start and a_end be 10, 11, and let b_start and b_end be 10, 11. Your code, given these arguments, should print "11, 11", since 11 * 11 is 121, and is a palindrome.
 
 
-##Solution
-
+Solution
+========
 
 def is_palindrome(number):
 

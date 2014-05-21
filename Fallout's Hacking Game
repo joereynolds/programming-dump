@@ -1,0 +1,55 @@
+import random
+
+difficulties = {1:4,
+				2:5,
+				3:7,
+				4:10,
+				5:15}
+
+def wordlist(difficulty):
+	wordlist = open('enable1.txt')
+	words = [word.strip() for word in wordlist if len(word) == difficulties[difficulty]+1]
+	wordlist.close()
+	return words
+
+def get_words(word_amount,difficulty):
+	words = []
+	for i in range(word_amount):
+		word = random.choice(wordlist(difficulty))
+		words.append(word)
+	return words
+
+def print_words(words):
+	print('----------')
+	for word in words:
+		print (word)
+	print('----------')
+
+def check_word(word,answer):
+	correct_letter_count = 0
+	for i in range(len(word)):
+		if word[i] == answer[i]:
+			correct_letter_count+=1
+	return correct_letter_count
+
+def main_loop(num_of_guesses,amount_of_words,difficulty):
+
+	guesses = num_of_guesses
+
+	words = get_words(amount_of_words,difficulty)
+	answer = random.choice(words)
+
+	while guesses:
+		print_words(words)
+		word = input('Take a guess: ')
+		print()
+		if check_word(word,answer) == len(answer):
+			print('YOU WON')
+			break
+		print(check_word(word,answer),'were in the correct position')
+		guesses-=1
+	print('The answer was',answer)
+	input('Press enter to exit')
+
+
+main_loop(10,10,4)

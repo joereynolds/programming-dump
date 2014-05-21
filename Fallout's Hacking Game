@@ -1,10 +1,10 @@
 import random
 
 difficulties = {1:4,
-				2:5,
-				3:7,
-				4:10,
-				5:15}
+		2:5,
+		3:7,
+		4:10,
+		5:15}
 
 def wordlist(difficulty):
 	wordlist = open('enable1.txt')

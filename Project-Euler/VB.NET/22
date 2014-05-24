@@ -24,10 +24,7 @@ Module Module1
                 total += letterSum * wordIndex
                 letterSum = 0
             Next
-            Console.WriteLine(total)
-
         End Using
-        Console.ReadKey()
 
     End Sub
 

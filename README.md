@@ -1,5 +1,9 @@
-dailyprogrammer
-===============
+Programming Challenges
+===================
 
-These are my personal solutions to various 'daily programmer' challenges on the subreddit /r/dailyprogrammer. 
-The majority are in Python 3.3 but you will find some in VB.NET as well.
+These are solutions to various programming challenges.
+
+Daily Programmer - Reddit's programming challenge subreddit
+Project Euler - Math based programming challenges
+
+They are completed in a variety of languages but I tend to do them in Python 

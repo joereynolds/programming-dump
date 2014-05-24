@@ -1,0 +1,57 @@
+Imports System.Console
+Imports System.Random
+
+
+Module Program
+
+    Sub Main()
+
+        Dim RandArray As Integer()
+        Dim Rolls = New Integer() {10, 100, 1000, 10000, 100000}
+        Dim ints As New Dictionary(Of Integer, Decimal)
+
+        ints.Add(1, 0)
+        ints.Add(2, 0)
+        ints.Add(3, 0)
+        ints.Add(4, 0)
+        ints.Add(5, 0)
+        ints.Add(6, 0)
+
+        Console.WriteLine("=================================================")
+        For Each roll As Integer In Rolls
+            RandArray = AddRandom(roll)
+            Console.WriteLine(roll)
+            For Each number As Integer In RandArray
+                ints.Item(number) += 1
+            Next
+            For counter As Integer = 1 To 6
+                Console.WriteLine("{0}: {1}", counter, (ints.Item(counter) / roll) * 100)
+            Next
+            Console.WriteLine("--------")
+
+            For item As Integer = 0 To 6
+                ints.Item(item) = 0
+            Next
+        Next
+
+        Console.ReadKey()
+
+    End Sub
+
+
+    Function AddRandom(n As Integer) As Integer()
+        'Populates an array of size n with n number
+        'of random numbers
+
+        Dim Array As Integer()
+        Dim rn = New Random
+        ReDim Array(n)
+
+        For index As Integer = 0 To n
+            Array(index) = rn.Next(1, 7)
+        Next
+        Return Array
+    End Function
+
+
+End Module

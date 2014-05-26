@@ -1,87 +1,84 @@
-	
+Imports System
+Imports System.Random
+Imports System.IO
+Imports System.Collections
 
-    Imports System
-    Imports System.Random
-    Imports System.IO
-    Imports System.Collections
-     
-     
-    Module Module1
-     
-        Sub Main()
-     
-            Dim difficulties As New Dictionary(Of Integer, Integer)
-            difficulties.Add(1, 4)
-            difficulties.Add(2, 5)
-            difficulties.Add(3, 6)
-            difficulties.Add(4, 8)
-            difficulties.Add(5, 10)
-            difficulties.Add(6, 12)
-            difficulties.Add(7, 15)
-     
-            Using sr As New StreamReader("enable1.txt")
-                Dim RandWord As New Random()
-                Dim AllLines As String = sr.ReadToEnd()
-                Dim SplitWords As String() = AllLines.Split(New String() {Environment.NewLine}, StringSplitOptions.None)
-     
-                Console.WriteLine("What level of difficulty would you like (1-4)")
-                Dim difficulty = Integer.Parse(Console.ReadLine())
-                Dim Words = GetWords(SplitWords, difficulties(difficulty))
-                Dim FilteredWords As New ArrayList
-     
-                Console.WriteLine("----------")
-                For WordAmount As Integer = 1 To 15
-                    Dim RandomWord = RandWord.Next(Words.Count - 1)
-                    Console.WriteLine(Words(RandomWord)) 'Write 15 random words of length difficulty
-                    FilteredWords.Add(Words(RandomWord))
-                Next
-     
-                Dim Answer As String = FilteredWords(RandWord.Next(FilteredWords.Count - 1))
-                Dim Won As Boolean = False
-                Dim GuessNum = 7
-     
-                While Not Won
-                    Console.WriteLine("Take a guess")
-                    Dim Guess As String = Console.ReadLine()
-                    Console.WriteLine("{0} Letters were correct", CorrectLetters(Guess, Answer))
-                    GuessNum -= 1
-                    Console.WriteLine("{0} Guesses left", GuessNum)
-     
-                    If GuessNum = 0 Then
-                        Console.WriteLine("Sorry, the answer was {0}! Press Enter to exit", Answer)
-                        Console.ReadKey()
-                        Return
-                    End If
-     
-                End While
-            End Using
-     
-            Console.ReadKey()
-     
-        End Sub
-     
-        Function GetWords(Words As String(), Length As Integer) As ArrayList
-            'Returns A list of all words in a String that are of Length "Length"
-            Dim WordsList As New ArrayList
-     
-            For Each Word As String In Words
-                If Word.Length = Length Then
-                    WordsList.Add(Word)
-                End If
-            Next
-     
-            Return WordsList
-        End Function
-     
-        Function CorrectLetters(Word1 As String, Word2 As String) As Integer
-            Dim Correct As Integer = 0
-            For index As Integer = 0 To Word1.Length - 1
-                If Word1(index) = Word2(index) Then
-                    Correct += 1
-                End If
-            Next
-            Return Correct
-        End Function
-     
-    End Module
 
+Module Module1
+
+    Sub Main()
+
+        Dim difficulties As New Dictionary(Of Integer, Integer)
+        difficulties.Add(1, 4)
+        difficulties.Add(2, 5)
+        difficulties.Add(3, 6)
+        difficulties.Add(4, 8)
+        difficulties.Add(5, 10)
+        difficulties.Add(6, 12)
+        difficulties.Add(7, 15)
+
+        Using sr As New StreamReader("enable1.txt")
+            Dim RandWord As New Random()
+            Dim AllLines As String = sr.ReadToEnd()
+            Dim SplitWords As String() = AllLines.Split(New String() {Environment.NewLine}, StringSplitOptions.None)
+
+            Console.WriteLine("What level of difficulty would you like (1-4)")
+            Dim difficulty = Integer.Parse(Console.ReadLine())
+            Dim Words = GetWords(SplitWords, difficulties(difficulty))
+            Dim FilteredWords As New ArrayList
+
+            Console.WriteLine("----------")
+            For WordAmount As Integer = 1 To 15
+                Dim RandomWord = RandWord.Next(Words.Count - 1)
+                Console.WriteLine(Words(RandomWord)) 'Write 15 random words of length difficulty
+                FilteredWords.Add(Words(RandomWord))
+            Next
+
+            Dim Answer As String = FilteredWords(RandWord.Next(FilteredWords.Count - 1))
+            Dim Won As Boolean = False
+            Dim GuessNum = 7
+
+            While Not Won
+                Console.WriteLine("Take a guess")
+                Dim Guess As String = Console.ReadLine()
+                Console.WriteLine("{0} Letters were correct", CorrectLetters(Guess, Answer))
+                GuessNum -= 1
+                Console.WriteLine("{0} Guesses left", GuessNum)
+
+                If GuessNum = 0 Then
+                    Console.WriteLine("Sorry, the answer was {0}! Press Enter to exit", Answer)
+                    Console.ReadKey()
+                    Return
+                End If
+
+            End While
+        End Using
+
+        Console.ReadKey()
+
+    End Sub
+
+    Function GetWords(Words As String(), Length As Integer) As ArrayList
+        'Returns A list of all words in a String that are of Length "Length"
+        Dim WordsList As New ArrayList
+
+        For Each Word As String In Words
+            If Word.Length = Length Then
+                WordsList.Add(Word)
+            End If
+        Next
+
+        Return WordsList
+    End Function
+
+    Function CorrectLetters(Word1 As String, Word2 As String) As Integer
+        Dim Correct As Integer = 0
+        For index As Integer = 0 To Word1.Length - 1
+            If Word1(index) = Word2(index) Then
+                Correct += 1
+            End If
+        Next
+        Return Correct
+    End Function
+
+End Module

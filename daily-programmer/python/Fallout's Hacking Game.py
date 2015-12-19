@@ -1,3 +1,4 @@
+"""
 ===========
 Description
 ===========
@@ -41,6 +42,7 @@ You win!
 ========
 Solution
 ========
+"""
 import random
 
 difficulties = {1:4,
@@ -50,7 +52,7 @@ difficulties = {1:4,
 		5:15}
 
 def wordlist(difficulty):
-	wordlist = open('enable1.txt')
+	wordlist = open('enable1')
 	words = [word.strip() for word in wordlist if len(word) == difficulties[difficulty]+1]
 	wordlist.close()
 	return words

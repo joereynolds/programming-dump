@@ -14,3 +14,6 @@ def output(*hex_values):
                 print('x',end='')
             else: print(' ',end='')
         print()
+
+
+output(pictures[0])

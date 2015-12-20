@@ -60,12 +60,15 @@ class LinkedList():
         """Prints a linked list"""
         node = self.head
 
-        print('[', end="")
+        string = '['
         while node:
             if node.next:
-                print(node.value, '-> ', end="")
+                string += str(node.value) + ' -> '
             else : 
-                print(node.value, end="")
+                string += str(node.value)
             node = node.next
-        print(']', end="")    
-        print()
+        string += ']'
+        return string
+
+    def __repr__(self):
+        return self.print_list()

@@ -1,0 +1,22 @@
+(define char->number
+  (lambda (char)
+    (- (char->integer char) 48)))
+
+;(define number->list
+;  (lambda (n)
+;    (let (strls (string->list (number->string n))))))
+
+(define number->list
+  (let ((strls 
+         (lambda (n) 
+           (string->list 
+            (number->string n)))))
+    (display strls)))
+
+(let ((double (lambda (x) (+ x x))))
+  (list (double (* 3 4))
+        (double (/ 99 11))
+        (double (- 2 7))))
+
+
+    

@@ -13,6 +13,3 @@ int main(int argc, char** argv)
     }
     printf("Answer is %d", sum);
 }
-
-
-

@@ -16,17 +16,13 @@ def factors(n):
     return factors
 
 def triangle_number(n):
-    """Returns the triangle number n"""
-    t = 0
-    for i in range(1, n+1):
-        t += i
-    return t
+    return n*(n+1)//2
 
 def triangle_numbers(n):
     """Generate the first n triangle numbers"""
-    return (triangle_number(tri) for tri in range(1, n+1))
+    return (triangle_number_new(tri) for tri in range(1, n+1))
 
 for num in triangle_numbers(20000):
-    if len(factors_new(num)) > 500:
+    if len(factors(num)) > 500:
         print(num)
         break

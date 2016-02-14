@@ -5,12 +5,10 @@ def get_rect_count(m, n):
 def get_closest(n, numbers):
     """Returns the number that is closest to n from a list"""
     closest = 99999999999999
-    matched_num = None
     for number in numbers:
         potential_closest = abs(number - n)
         if potential_closest < closest:
             closest = potential_closest
-            matched_num = number
 
     #1st item = How far off we were from the target
     #2nd item = What our closest number was

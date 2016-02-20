@@ -1,6 +1,6 @@
 """An implementation of a linked list...in python"""
 
-class Node():
+class Node(object):
     """The meat and potatoes of our
     LinkedList."""
 
@@ -9,7 +9,7 @@ class Node():
         self.next = None
 
 
-class LinkedList():
+class LinkedList(object):
     """A collection of Node's"""
 
     def __init__(self):
@@ -29,7 +29,7 @@ class LinkedList():
 
         if self.head is None:
             self.head = node
-        self.tail = node     
+        self.tail = node
 
         if self.current_node is None:
             self.current_node = node
@@ -54,7 +54,7 @@ class LinkedList():
             if node.next.value == value:
                 node.next = node.next.next
                 return
-            node = node.next    
+            node = node.next
 
     def print_list(self):
         """Prints a linked list"""
@@ -64,7 +64,7 @@ class LinkedList():
         while node:
             if node.next:
                 string += str(node.value) + ' -> '
-            else : 
+            else:
                 string += str(node.value)
             node = node.next
         string += ']'

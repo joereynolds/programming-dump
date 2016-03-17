@@ -23,3 +23,8 @@
 	    (list*2 (cdr ls)))))
 
 
+(define add-one
+  (lambda (x)
+    (+ x 1)))
+
+(add-one 56)

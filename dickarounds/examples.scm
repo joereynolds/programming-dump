@@ -22,9 +22,15 @@
       (cons (* 2 (car ls))
 	    (list*2 (cdr ls)))))
 
+<<<<<<< Updated upstream
 
 (define add-one
   (lambda (x)
     (+ x 1)))
 
 (add-one 56)
+=======
+(define plus-one
+  (lambda (x)
+   + x 1))
+>>>>>>> Stashed changes

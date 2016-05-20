@@ -35,18 +35,22 @@
   (8 . "th")
   (9 . "th")))
 
-;loop 'times' times and omit 'position' from the count
+;loop 'times' times and omit 'position' from the output
 (define loop
   (lambda (times position)
     (cond
       ((= times position) (loop (sub1 times) position))
       (else
-        (display times)
         (display
           (string-append
-            (cdr (assq (char->number (last-digit times)) number-suffix)) "\n"))
+            (number->string times)
+            (get-suffix (last-digit times)) "\n"))
         (if (> times 1)
           (loop (sub1 times) position))))))
+
+(define get-suffix
+  (lambda (key)
+    (cdr (assq (char->number key) number-suffix))))
 
 ; 10934 -> 4
 ; 503 -> 3
@@ -62,17 +66,4 @@
   (lambda (char)
     (- (char->integer char) 48)))
 
-(define type
-  (lambda (x)
-  (cond
-    ((procedure? x) "procedure")
-    ((boolean? x) "boolean")
-    ((number? x) "number")
-    ((string? x) "string")
-    ((char? x) "char")
-    ((list? x) "list")
-    ((null? x) "null")
-    ((pair? x) "pair")
-    (else "unknown type"))))
-
-(loop 100 7)
+(loop 100 6)

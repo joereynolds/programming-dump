@@ -1,0 +1,98 @@
+<div class="app metronome">
+
+    <section class="title">
+      Metronome
+    </section>
+
+    <section class="content">
+      <h1>Random music fact of the day here</h1>
+      <div class="slider">
+        <h2>Tempo</h2>
+        <div>slider here...</div>
+        <h2>132 BPM</h2>
+      </div>
+
+      <div>Play icon here</div>
+
+      <div class="bars">
+        <div class="bar">
+          <div class="close">X</div>
+          <p class="bar-content">4/4</p>
+        </div>
+        <div class="bar">
+          <div class="close">X</div>
+          <p class="bar-content">4/4</p>
+        </div>
+        <div class="bar">
+          <div class="close">X</div>
+          <p class="bar-content">7/8</p>
+        </div>
+        <div class="bar new"><p class="bar-content">Add New</p></div>
+      </div>
+    </section>
+
+</div>
+
+<style>
+.app {
+  border: 1px solid #ccc;
+  font-family: monospace;
+}
+.app > * {
+  padding: 25px;
+}
+
+.metronome .title {
+  background-color: #1EA7E1;
+  color: #fff;
+}
+.metronome .content {
+  text-align: center;
+}
+.metronome .bars {
+  display: flex;
+  flex-wrap: wrap;
+}
+.metronome .bar {
+  display: flex;
+  flex-basis: 25%;
+  border: 2px solid #1EA7E1;
+  height: 100px;
+  margin-bottom: 5px;
+  position: relative;
+}
+.metronome .bar .close {
+  background: #334F84;
+  color: #fff;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 25px;
+  padding: 15px;
+  transition: background .25s;
+}
+.metronome .bar .close:hover {
+  background: #1EA7E1;
+  cursor: pointer;
+}
+.metronome .bar.new {
+  border-style: dashed;
+  background: #E0F6FF;
+  color: #1EA7E1;
+  transition: all .25s;
+}
+.metronome .bar.new:hover {
+  cursor: pointer;
+  background: #334F84;
+  color: #fff;
+  border-color: #fff;
+}
+.metronome .bar-content {
+  margin: auto;
+}
+/* selects all but the fourth */
+.metronome .bar:nth-child(-n+3) {
+  margin-right: 5px;
+}
+
+</style>

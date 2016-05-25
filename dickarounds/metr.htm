@@ -20,22 +20,21 @@
         <div class="bar">
           <div class="close">X</div>
           <p class="bar-content">4/4</p>
-        </div>
-        <div class="bar">
-          <div class="close">X</div>
-          <p class="bar-content">4/4</p>
-        </div>
-        <div class="bar">
-          <div class="close">X</div>
-          <p class="bar-content">7/8</p>
+            <span class="inputs">
+              <input required pattern="1|2|3|4|5|6|7|8|9|10|11|12">
+               /
+              <input required pattern="2|4|8|16|32">
+            </span>
         </div>
         <div class="bar new"><p class="bar-content">Add New</p></div>
       </div>
     </section>
-
 </div>
 
 <style>
+* {
+  box-sizing: border-box;
+}
 .app {
   border: 1px solid #ccc;
   font-family: monospace;
@@ -43,7 +42,17 @@
 .app > * {
   padding: 25px;
 }
-
+.metronome input {
+  padding: 5px;
+  width: 40px;
+  display: inline-block;
+}
+.metronome input:invalid {
+  border: 2px solid red;
+}
+.metronome .inputs {
+  display: none;
+}
 .metronome .title {
   background-color: #1EA7E1;
   color: #fff;
@@ -56,12 +65,17 @@
   flex-wrap: wrap;
 }
 .metronome .bar {
-  display: flex;
-  flex-basis: 25%;
+  flex-basis: 24%;
   border: 2px solid #1EA7E1;
-  height: 100px;
+  padding: 35px;
   margin-bottom: 5px;
   position: relative;
+}
+.metronome .bar:not(.new):hover p{
+  display: none;
+}
+.metronome .bar:hover .inputs{
+  display: inline-block;
 }
 .metronome .bar .close {
   background: #334F84;
@@ -69,8 +83,7 @@
   position: absolute;
   right: 0;
   top: 0;
-  width: 25px;
-  padding: 15px;
+  padding: 15px 20px;
   transition: background .25s;
 }
 .metronome .bar .close:hover {
@@ -92,15 +105,27 @@
 .metronome .bar-content {
   margin: auto;
 }
-/* selects all but the fourth */
-.metronome .bar:nth-child(-n+3) {
+.metronome .bar {
   margin-right: 5px;
+}
+/*Remove the right margin on every 4th bar since we flex-wrap after our 4th item.
+ We don't want stray margins.*/
+.metronome .bar:nth-child(4n) {
+  margin-right: 0;
 }
 </style>
 <script>
 
 //This makes me sad
-var barHtml = '<div class="bar"><div class="close">X</div><p class="bar-content">4/4</p></div>';
+var barHtml = '<div class="bar">' +
+                '<div class="close">X</div>' +
+                '<p class="bar-content">4/4</p>' +
+                '<span class="inputs">' +
+                  '<input required pattern="1|2|3|4|5|6|7|8|9|10|11|12">' +
+                   '/' +
+                  '<input required pattern="2|4|8|16|32">' +
+                '</span>' +
+              '</div>';
 
 $('.bar.new').click(function() {
     $(barHtml).insertBefore($(this));
@@ -108,5 +133,8 @@ $('.bar.new').click(function() {
 $('.bars').on('click', '.close', function() {
     $(this).parent().remove();
 });
-
 </script>
+<!--
+Ideas
+- Subtly shake the bar on the first beat
+-->

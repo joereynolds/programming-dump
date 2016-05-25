@@ -1,3 +1,5 @@
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
 <div class="app metronome">
 
     <section class="title">
@@ -94,5 +96,17 @@
 .metronome .bar:nth-child(-n+3) {
   margin-right: 5px;
 }
-
 </style>
+<script>
+
+//This makes me sad
+var barHtml = '<div class="bar"><div class="close">X</div><p class="bar-content">4/4</p></div>';
+
+$('.bar.new').click(function() {
+    $(barHtml).insertBefore($(this));
+});
+$('.bars').on('click', '.close', function() {
+    $(this).parent().remove();
+});
+
+</script>

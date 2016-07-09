@@ -29,10 +29,13 @@
 ;- https://en.wikipedia.org/wiki/ISO_8601
 ;- http://php.net/manual/en/function.strtotime.php
 ;- https://xkcd.com/1179/
-;- *Moderator note:* If you would like to solve the general case to absolutely work on all possible input dates, check out this video first: https://www.youtube.com/watch?v=-5wpm-gesOY
+;- *Moderator note:*
+;If you would like to solve the general case to absolutely work on all
+;possible input dates, check out this video first:
+;https://www.youtube.com/watch?v=-5wpm-gesOY
 
-(use posix) ;contains date funtions
-(use data-structures) ;useful string functions
+(use posix) ;contains date functions
+(use data-structures) ;string-split
 
 (define parse-date
   (lambda (date-string)
@@ -40,17 +43,53 @@
 
 (define date-mdy?
   (lambda (date-string)
-    (display "stub")))
+    (if
+      (not (date-ymd? date-string))
+      #t
+      #f)))
 
 (define date-ymd?
   (lambda (date-string)
+    (if
+      (= (string-length (list-ref (parse-date date-string) 0)) 4)
+      #t
+      #f)))
+
+(define convert-date
+  (lambda (date-string)
+    (if (date-ymd? date-string)
+      (convert-date-from-ymd date-string)
+      (convert-date-from-mdy date-string))))
+
+(define convert-date-from-ymd
+  (lambda (date-string)
     (display "stub")))
 
-(display (parse-date "2008/01/07"))
-(display "\n")
-(display (parse-date "2/13/15"))
-(display "\n")
-(display (parse-date "5 10 2015"))
-(display "\n")
-(display (parse-date "2008-01-01"))
-(display "\n")
+(define convert-date-from-mdy
+  (lambda (date-string)
+    (display "stub")))
+
+(assert (equal?
+          (date-mdy? "2/14/16")
+          #t))
+
+(assert (equal?
+          (date-ymd? "2003/02/03")
+          #t))
+
+(assert (equal?
+          (parse-date "2008/01/07")
+          '("2008" "01" "07")))
+
+(assert (equal?
+          (parse-date "2/13/15")
+          '("2" "13" "15")))
+
+(assert (equal?
+          (parse-date "5 10 2015")
+          '("5" "10" "2015")))
+
+(assert (equal?
+          (parse-date "2008-01-01")
+          '("2008" "01" "01")))
+

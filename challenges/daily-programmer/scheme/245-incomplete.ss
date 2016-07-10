@@ -34,20 +34,26 @@
 ;possible input dates, check out this video first:
 ;https://www.youtube.com/watch?v=-5wpm-gesOY
 
+;improvements:
+;  - Use (format) to pad the zeroes out when necessary
+;      http://wiki.call-cc.org/man/4/Unit%20extras#fprintf
 (use posix) ;contains date functions
 (use data-structures) ;string-split
+(use extras) ;string format
 
+; parse-date :: String -> [String]
 (define parse-date
   (lambda (date-string)
        (string-split date-string " -/")))
 
+; date-mdy :: String -> Bool
 (define date-mdy?
   (lambda (date-string)
-    (if
-      (not (date-ymd? date-string))
+    (if (not (date-ymd? date-string))
       #t
       #f)))
 
+; date-ymd :: String -> Bool
 (define date-ymd?
   (lambda (date-string)
     (if
@@ -55,23 +61,88 @@
       #t
       #f)))
 
+; convert-date :: String -> String
 (define convert-date
   (lambda (date-string)
     (if (date-ymd? date-string)
-      (convert-date-from-ymd date-string)
-      (convert-date-from-mdy date-string))))
+      (convert-date-from-ymd (parse-date date-string))
+      (convert-date-from-mdy (parse-date date-string)))))
 
+
+; convert-date-from-ymd :: [String] -> String
 (define convert-date-from-ymd
-  (lambda (date-string)
-    (display "stub")))
+  (lambda (parsed-date)
+    (string-append
+      (list-ref parsed-date 0)
+      "-"
+      (zero-pad (list-ref parsed-date 1))
+      "-"
+      (list-ref parsed-date 2))))
 
+; convert-date-from-mdy :: [String] -> String
 (define convert-date-from-mdy
-  (lambda (date-string)
-    (display "stub")))
+  (lambda (parsed-date)
+    (string-append
+      (year-pad(list-ref parsed-date 2))
+      "-"
+      (zero-pad(list-ref parsed-date 0))
+      "-"
+      (zero-pad(list-ref parsed-date 1)))))
 
+; zero-pad :: String -> String
+(define zero-pad
+  (lambda (n)
+    (if
+      (and (< (string->number n) 10) (= (string-length n) 1))
+      (string-append "0" n)
+      n)))
+
+; year-pad :: String -> String
+(define year-pad
+  (lambda (year)
+    (if (= (string-length year) 2)
+      (string-append "20" year)
+      year)))
+
+
+;Sample inputs
+(assert (string=?
+          (convert-date "2/13/15")
+          "2015-02-13"))
+
+(assert (string=?
+          (convert-date "1-31-10")
+          "2010-01-31"))
+
+(assert (string=?
+          (convert-date "5 10 2015")
+          "2015-05-10"))
+
+(assert (string=?
+          (convert-date "2012 3 17")
+          "2012-03-17"))
+
+(assert (string=?
+          (convert-date "2001-01-01")
+          "2001-01-01"))
+
+(assert (string=?
+          (convert-date "2008/01/07")
+          "2008-01-07"))
+
+
+;'Unit' tests...kinda
 (assert (equal?
           (date-mdy? "2/14/16")
           #t))
+
+(assert (string=?
+          (zero-pad "4")
+          "04"))
+
+(assert (string=?
+          (year-pad "10")
+          "2010"))
 
 (assert (equal?
           (date-ymd? "2003/02/03")
@@ -92,4 +163,3 @@
 (assert (equal?
           (parse-date "2008-01-01")
           '("2008" "01" "01")))
-

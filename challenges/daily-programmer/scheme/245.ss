@@ -39,12 +39,12 @@
 ;      http://wiki.call-cc.org/man/4/Unit%20extras#fprintf
 (use posix) ;contains date functions
 (use data-structures) ;string-split
-(use extras) ;string format
+(use extras) ;sprintf
 
 ; parse-date :: String -> [String]
 (define parse-date
   (lambda (date-string)
-       (string-split date-string " -/")))
+    (string-split date-string " -/")))
 
 ; date-mdy :: String -> Bool
 (define date-mdy?
@@ -72,21 +72,17 @@
 ; convert-date-from-ymd :: [String] -> String
 (define convert-date-from-ymd
   (lambda (parsed-date)
-    (string-append
+    (sprintf "~A-~A-~A"
       (list-ref parsed-date 0)
-      "-"
       (zero-pad (list-ref parsed-date 1))
-      "-"
       (list-ref parsed-date 2))))
 
 ; convert-date-from-mdy :: [String] -> String
 (define convert-date-from-mdy
   (lambda (parsed-date)
-    (string-append
+    (sprintf "~A-~A-~A"
       (year-pad(list-ref parsed-date 2))
-      "-"
       (zero-pad(list-ref parsed-date 0))
-      "-"
       (zero-pad(list-ref parsed-date 1)))))
 
 ; zero-pad :: String -> String
@@ -94,16 +90,15 @@
   (lambda (n)
     (if
       (and (< (string->number n) 10) (= (string-length n) 1))
-      (string-append "0" n)
+      (sprintf "0~A" n)
       n)))
 
 ; year-pad :: String -> String
 (define year-pad
   (lambda (year)
     (if (= (string-length year) 2)
-      (string-append "20" year)
+      (sprintf "20~A" year)
       year)))
-
 
 ;Sample inputs
 (assert (string=?

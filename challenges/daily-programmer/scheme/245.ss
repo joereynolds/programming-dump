@@ -40,6 +40,7 @@
 (use posix) ;contains date functions
 (use data-structures) ;string-split
 (use extras) ;sprintf
+(use test) ;unit tests
 
 ; parse-date :: String -> [String]
 (define parse-date
@@ -101,60 +102,19 @@
       year)))
 
 ;Sample inputs
-(assert (string=?
-          (convert-date "2/13/15")
-          "2015-02-13"))
+(test "2015-02-13" (convert-date "2/13/15"))
+(test "2010-01-31" (convert-date "1-31-10"))
+(test "2015-05-10" (convert-date "5 10 2015"))
+(test "2012-03-17" (convert-date "2012 3 17"))
+(test "2001-01-01" (convert-date "2001-01-01"))
+(test "2008-01-07" (convert-date "2008/01/07"))
 
-(assert (string=?
-          (convert-date "1-31-10")
-          "2010-01-31"))
-
-(assert (string=?
-          (convert-date "5 10 2015")
-          "2015-05-10"))
-
-(assert (string=?
-          (convert-date "2012 3 17")
-          "2012-03-17"))
-
-(assert (string=?
-          (convert-date "2001-01-01")
-          "2001-01-01"))
-
-(assert (string=?
-          (convert-date "2008/01/07")
-          "2008-01-07"))
-
-
-;'Unit' tests...kinda
-(assert (equal?
-          (date-mdy? "2/14/16")
-          #t))
-
-(assert (string=?
-          (zero-pad "4")
-          "04"))
-
-(assert (string=?
-          (year-pad "10")
-          "2010"))
-
-(assert (equal?
-          (date-ymd? "2003/02/03")
-          #t))
-
-(assert (equal?
-          (parse-date "2008/01/07")
-          '("2008" "01" "07")))
-
-(assert (equal?
-          (parse-date "2/13/15")
-          '("2" "13" "15")))
-
-(assert (equal?
-          (parse-date "5 10 2015")
-          '("5" "10" "2015")))
-
-(assert (equal?
-          (parse-date "2008-01-01")
-          '("2008" "01" "01")))
+;units
+(test "04" (zero-pad "4"))
+(test "2010" (year-pad "10"))
+(test #t (date-mdy? "2/14/16"))
+(test #t (date-ymd? "2003/02/03"))
+(test '("2008" "01" "07") (parse-date "2008/01/07"))
+(test '("2" "13" "15") (parse-date "2/13/15"))
+(test '("5" "10" "2015") (parse-date "5 10 2015"))
+(test '("2008" "01" "01") (parse-date "2008-01-01"))

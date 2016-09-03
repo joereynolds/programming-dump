@@ -6,15 +6,17 @@
       Metronome
     </section>
 
-    <section class="content">
-      <h1>Random music fact of the day here</h1>
-      <div class="slider">
-        <h2>Tempo</h2>
-        <div>slider here...</div>
-        <h2>132 BPM</h2>
-      </div>
+    <div class="content">
 
-      <div>Play icon here</div>
+      <section>
+        <h1>Random music fact of the day here</h1>
+        <div class="slider">
+          <h2>Tempo</h2>
+          <div><input min="1" max="300" value="120" type="range"></div>
+          <h2 class="tempo"></h2>
+        </div>
+        <div><button class="hover-dark">Play</button></div>
+      </section>
 
       <div class="bars">
         <div class="bar">
@@ -26,23 +28,33 @@
               <input required pattern="2|4|8|16|32">
             </span>
         </div>
-        <div class="bar new"><p class="bar-content">Add New</p></div>
+        <div class="bar new hover-dark"><p class="bar-content">Add New</p></div>
       </div>
-    </section>
+    </div>
 </div>
 
 <style>
+/* reset */
+h1,h2,h3,h4,h5 {
+  margin-top: 0;
+}
+/* end reset */
 * {
   box-sizing: border-box;
 }
 .app {
   border: 1px solid #ccc;
   font-family: monospace;
+  width: 800px;
 }
 .app > * {
   padding: 25px;
 }
-.metronome input {
+.metronome button {
+    background: #E0F6FF;
+    border: 2px solid #1EA7E1;
+}
+.metronome input:not([type="range"]) {
   padding: 5px;
   width: 40px;
   display: inline-block;
@@ -59,6 +71,9 @@
 }
 .metronome .content {
   text-align: center;
+}
+.metronome .content > * + * {
+  margin-top: 25px;
 }
 .metronome .bars {
   display: flex;
@@ -86,7 +101,7 @@
   padding: 15px 20px;
   transition: background .25s;
 }
-.metronome .bar .close:hover {
+.metronome .close:hover {
   background: #1EA7E1;
   cursor: pointer;
 }
@@ -96,12 +111,13 @@
   color: #1EA7E1;
   transition: all .25s;
 }
-.metronome .bar.new:hover {
+.metronome .hover-dark:hover {
   cursor: pointer;
   background: #334F84;
   color: #fff;
   border-color: #fff;
 }
+
 .metronome .bar-content {
   margin: auto;
 }
@@ -117,24 +133,33 @@
 <script>
 
 //This makes me sad
-var barHtml = '<div class="bar">' +
-                '<div class="close">X</div>' +
-                '<p class="bar-content">4/4</p>' +
-                '<span class="inputs">' +
-                  '<input required pattern="1|2|3|4|5|6|7|8|9|10|11|12">' +
-                   '/' +
-                  '<input required pattern="2|4|8|16|32">' +
-                '</span>' +
-              '</div>';
+var barHtml = `<div class="bar">
+                <div class="close">X</div>
+                <p class="bar-content">4/4</p>
+                <span class="inputs">
+                  <input required pattern="1|2|3|4|5|6|7|8|9|10|11|12">
+                   /
+                  <input required pattern="2|4|8|16|32">
+                </span>
+              </div>`;
 
 $('.bar.new').click(function() {
     $(barHtml).insertBefore($(this));
 });
+
 $('.bars').on('click', '.close', function() {
     $(this).parent().remove();
+});
+
+$('[type="range"]').on('mousemove', function() {
+  $('.tempo').text($(this).val());
 });
 </script>
 <!--
 Ideas
 - Subtly shake the bar on the first beat
+- Tempo should be text editable as well
+- ES6
+- use strict
+- Rename '.new' to '.is-new'
 -->

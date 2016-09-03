@@ -42,11 +42,6 @@
 ;    Ǐḟ Ƅȫţȟ țḧè ƥāṣț ặňḓ ŧħᶒ ḙxᵵęȑᶇȁȴ ẁőŕȴɗ ȩxĭʂƫ ǫȵľȳ ȋɳ ȶḥẽ ṁįƞḋ,
 ;    ǡǹƌ ᵻḟ ṱȟë ḿīᵰᶑ ḭẗᵴḛɫᵮ ɨś čổɲȶṙŏłḹạɓɭḕ – ŵḫāṯ ƫḩḕñ?
 ;
-;##**Notes**
-;
-;* If your browser/compiler/console cannot display diacritics, switch encoding to UTF-8.
-;* Other than diacritics, you can use similar-looking characters like Cyrillic`И` for `N`
-;
 ;##**Bonus challenges**
 ;
 ;Make your `twistUp` method take not only letters of English alphabet, but all the letters:
@@ -75,20 +70,60 @@
 ;    The proof that the little prince existed is that he was charming, that he laughed,
 ;    and that he was looking for a sheep. If anybody wants a sheep, that is a proof that he exists.
 
-;(use test)
+(use test)
+(use srfi-1)
+
+
 (define letters '(
-  ("a" .
+  (#\a .
    '("á" "ă" "ắ" "ặ" "ằ" "ẳ" "ẵ" "ǎ" "â" "ấ" "ậ" "ầ"
      "ẩ" "ẫ" "ä" "ạ" "à" "ả" "ā" "ą" "å" "ǻ" "ã" "ɑ"
      "ɐ" "ɒ"))
-  ("b" .
+  (#\b .
     '("ḅ" "ɓ" "ß" "♭" "␢" "Б"))
-  ("c" .
+  (#\c .
    '("ć" "č" "ç" "ĉ" "ɕ" "ċ"))
-  ("d" . 25)))
+  (#\d .
+   '("ď" "ḓ" "ḍ" "ɗ" "ḏ" "đ" "ɖ"))))
+
+(define random-choice
+  (lambda (ls)
+    (list-ref ls (random (length ls)))))
+
+(define ruin-string
+  (lambda (sentence)
+    (let ((sentence (string->list sentence)))
+
+      (display
+        (map char? sentence)))))
+
+
+      ;(map
+      ;  random-choice
+      ;  (caddr (assoc sentence letters))))))
+
+
+
+(ruin-string "cab")
+
+
+
+
+; tests
+(define test-list '(1 34 56 79))
+(define string-list '("another" "test" "1" "564"))
+
+(test "It returns an element from the list"
+  #t
+  (number? (random-choice test-list)))
+
+(test "It returns false on a string when it expects numbers"
+  #f
+  (number? (random-choice string-list)))
+
 
 ;; ("d" .
-;   '(ďḓḍɗḏđɖ',
+;   '(
 ;; ("e" .
 ;   '(éĕěêếệềểễëėẹèẻēęẽɘəɚ',
 ;; ("f" .
@@ -187,7 +222,3 @@
 ;   '(ŹŽŻẒẔƵ'k
 ;
 
-
-(newline)
-(display (assoc "a" letters))
-(newline)

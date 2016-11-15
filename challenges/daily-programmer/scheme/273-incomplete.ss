@@ -71,7 +71,6 @@
 ;    and that he was looking for a sheep. If anybody wants a sheep, that is a proof that he exists.
 
 (use test)
-(use srfi-1)
 
 
 (define letters '(
@@ -79,48 +78,44 @@
    '("á" "ă" "ắ" "ặ" "ằ" "ẳ" "ẵ" "ǎ" "â" "ấ" "ậ" "ầ"
      "ẩ" "ẫ" "ä" "ạ" "à" "ả" "ā" "ą" "å" "ǻ" "ã" "ɑ"
      "ɐ" "ɒ"))
-  (#\b .
-    '("ḅ" "ɓ" "ß" "♭" "␢" "Б"))
-  (#\c .
-   '("ć" "č" "ç" "ĉ" "ɕ" "ċ"))
-  (#\d .
-   '("ď" "ḓ" "ḍ" "ɗ" "ḏ" "đ" "ɖ"))))
+  (#\b . '("ḅ" "ɓ" "ß" "♭" "␢" "Б"))
+  (#\c . '("ć" "č" "ç" "ĉ" "ɕ" "ċ"))
+  (#\d . '("ď" "ḓ" "ḍ" "ɗ" "ḏ" "đ" "ɖ"))))
 
 (define random-choice
   (lambda (ls)
     (list-ref ls (random (length ls)))))
 
+(define dict-value
+  (lambda (dict key)
+    (caddr (assoc key dict))))
+
 (define ruin-string
   (lambda (sentence)
-    (let ((sentence (string->list sentence)))
+    (let ((sentence (string->list sentence)) (ruined ""))
+      (map
+        string-append
+      (set! ruined "ert")
+      (display ruined)
+                                            
 
-      (display
-        (map char? sentence)))))
+      (string-append
 
+        (random-choice (dict-value letters #\c))
+        (random-choice (dict-value letters #\a))
+        (random-choice (dict-value letters #\b))
+      ))))
 
-      ;(map
-      ;  random-choice
-      ;  (caddr (assoc sentence letters))))))
-
-
-
-(ruin-string "cab")
-
-
+(display (ruin-string "cab"))
+;(display (list? (dict-value letters #\a)))
 
 
 ; tests
 (define test-list '(1 34 56 79))
-(define string-list '("another" "test" "1" "564"))
 
 (test "It returns an element from the list"
   #t
   (number? (random-choice test-list)))
-
-(test "It returns false on a string when it expects numbers"
-  #f
-  (number? (random-choice string-list)))
-
 
 ;; ("d" .
 ;   '(

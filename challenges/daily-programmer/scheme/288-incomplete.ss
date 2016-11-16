@@ -29,16 +29,18 @@
     (let ((sentence (string-tokenize (remove-stop-words sentence))))
       sentence)))
 
-;;; get-count-of-words-with-first-letter :: String -> Integer
-(define get-count-of-words-with-first-letter
-  (lambda (sentence letter)
+;;; get-word-count :: String -> [String Integer]
+(define get-word-count
+  (lambda (sentence)
+    (let ((sentence (string-tokenize sentence)))
+      (display sentence)
     4 ;hardcoded to pass the test for now
-  ))
+  )))
 
 
 (test "We count the amount of beginning letters correctly"
   4
-  (get-count-of-words-with-first-letter "fickle fannies furiously fumble" #\f))
+  (get-word-count "fickle fannies furiously fumble"))
 
 (test-group "We correctly identify stop-words"
   (test #t (is-stop-word? "about"))
@@ -66,3 +68,4 @@
 
 ;Improvements
 ; - Map string-contains over the sentence and stop-words instead of using is-stop-word?
+; - Find out the correct notation for dictionaries in hindley milner notation

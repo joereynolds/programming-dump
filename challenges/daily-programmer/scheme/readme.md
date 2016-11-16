@@ -1,6 +1,12 @@
 # Scheme challenges
 
-I use Chicken Scheme.
+I use Chicken Scheme and the egg `test`. You'll need these two to run these programs:
+
+```
+sudo apt-get install chicken-bin libchicken-dev libchicken6
+sudo chicken-install test
+```
+
 To run these you will need it installed. Once installed you can run the challenge files like so
 
 `csi -s 245.ss`

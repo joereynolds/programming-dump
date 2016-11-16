@@ -30,17 +30,26 @@
       sentence)))
 
 ;;; get-word-count :: String -> [String Integer]
+;(get-word-count "hello howard are you okay") 
+;  -> '(("h" . 2) ("a" . 1) ("y" . 1) ("o" . 1))
 (define get-word-count
   (lambda (sentence)
-    (let ((sentence (string-tokenize sentence)))
-      (display sentence)
-    4 ;hardcoded to pass the test for now
+    (let ((sentence (string-tokenize sentence)) (letter-count '()))
+      (map get-first-letter sentence)
   )))
 
+(define get-first-letter
+  (lambda (word)
+    (string-ref word 0)))
+
+
+(test "We get the first letter from a word"
+  #\a
+  (get-first-letter "apple"))
 
 (test "We count the amount of beginning letters correctly"
   4
-  (get-word-count "fickle fannies furiously fumble"))
+  (get-word-count "fickle fannies furiously fumble also"))
 
 (test-group "We correctly identify stop-words"
   (test #t (is-stop-word? "about"))

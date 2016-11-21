@@ -3,16 +3,6 @@
 (use srfi-13) ;strings
 (use srfi-14) ;character sets
 
-(define stop-words '(
-    "a" "about" "an" "are" 
-    "as" "at" "be" "by"
-    "com" "for" "from" "how"
-    "in" "is" "it" "of" 
-    "on" "or" "that" "the"
-    "the" "this" "to" "was"
-    "what" "when" "where" "who"
-    "will" "with")) 
-
 ;;; remove-stop-words :: String -> String
 (define remove-stop-words
   (lambda (sentence)
@@ -22,18 +12,12 @@
 ;;; is-stop-word :: String -> Boolean
 (define is-stop-word?
   (lambda (word)
-    (not (boolean? (member word stop-words)))))
-
-;;; get-letters :: String -> [Char]
-;(get-letters "hello howard are you okay") -> '(#\h #\h #\a #\y #\o)
-(define get-letters
-  (lambda (sentence)
-    (let ((sentence (string-tokenize sentence)) (letter-count '()))
-      (map get-first-letter sentence))))
-
-(define get-first-letter
-  (lambda (word)
-    (string-ref word 0)))
+    (let ((stop-words '(
+      "a" "about" "an" "are" "as" "at" "be" "by"
+      "com" "for" "from" "how" "in" "is" "it" "of" 
+      "on" "or" "that" "the" "the" "this" "to" "was"
+      "what" "when" "where" "who" "will" "with")))
+    (not (boolean? (member word stop-words))))))
 
 (define l
   (lambda (sentence)
@@ -59,14 +43,6 @@
 (l "i jindex am just in a test test")
 (l "owain often thought about arithmetic")
 
-(test "We get the first letter from a word"
-  #\a
-  (get-first-letter "apple"))
-
-(test "We get the first letters from a sentence"
-  '(#\h #\i #\n #\t #\m #\y #\h #\h)
-  (get-letters "hello it's nice to meet you ha ha"))
-
 (test-group "We correctly identify stop-words"
   (test #t (is-stop-word? "about"))
   (test #f (is-stop-word? "mouse")))
@@ -78,7 +54,3 @@
   (test 
     "man stupid" 
     (remove-stop-words "is that man stupid")))
-
-;Improvements
-; - Map string-contains over the sentence and stop-words instead of using is-stop-word?
-; - Find out the correct notation for dictionaries in hindley milner notation

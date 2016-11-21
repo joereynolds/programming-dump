@@ -37,15 +37,28 @@
 
 (define l
   (lambda (sentence)
-    (let ((index 0)
+    (let ((words-to-show '())
+          (index 0)
           (sentence (string-tokenize (remove-stop-words sentence))))
+
+      (if 
+        (eq? 
+          (string-ref (list-ref sentence index) 0) 
+          (string-ref (list-ref sentence (+ index 1)) 0))
+        (append words-to-show 
+          (list (list-ref sentence index))
+          (list (list-ref sentence (+ index 1)))))
+
+      (set! index (+ index 2))
+      (display words-to-show)
+
+      
       (display sentence))))
 
-      
-   
 
-(l "i am just in a test test")
-      
+(l "i jindex am just in a test test")
+(l "owain often thought about arithmetic")
+
 (test "We get the first letter from a word"
   #\a
   (get-first-letter "apple"))

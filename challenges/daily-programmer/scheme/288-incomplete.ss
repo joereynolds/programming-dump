@@ -1,6 +1,7 @@
-(use test)
-(use srfi-1)
-(use srfi-13)
+(use test)    ;unit tests
+(use srfi-1)  ;lists
+(use srfi-13) ;strings
+(use srfi-14) ;character sets
 
 (define stop-words '(
     "a" "about" "an" "are" 
@@ -23,33 +24,35 @@
   (lambda (word)
     (not (boolean? (member word stop-words)))))
 
-;;; get-alliterations :: String -> String
-(define get-alliterations
-  (lambda (sentence)
-    (let ((sentence (string-tokenize (remove-stop-words sentence))))
-      sentence)))
-
-;;; get-word-count :: String -> [String Integer]
-;(get-word-count "hello howard are you okay") 
-;  -> '(("h" . 2) ("a" . 1) ("y" . 1) ("o" . 1))
-(define get-word-count
+;;; get-letters :: String -> [Char]
+;(get-letters "hello howard are you okay") -> '(#\h #\h #\a #\y #\o)
+(define get-letters
   (lambda (sentence)
     (let ((sentence (string-tokenize sentence)) (letter-count '()))
-      (map get-first-letter sentence)
-  )))
+      (map get-first-letter sentence))))
 
 (define get-first-letter
   (lambda (word)
     (string-ref word 0)))
 
+(define l
+  (lambda (sentence)
+    (let ((index 0)
+          (sentence (string-tokenize (remove-stop-words sentence))))
+      (display sentence))))
 
+      
+   
+
+(l "i am just in a test test")
+      
 (test "We get the first letter from a word"
   #\a
   (get-first-letter "apple"))
 
-(test "We count the amount of beginning letters correctly"
-  4
-  (get-word-count "fickle fannies furiously fumble also"))
+(test "We get the first letters from a sentence"
+  '(#\h #\i #\n #\t #\m #\y #\h #\h)
+  (get-letters "hello it's nice to meet you ha ha"))
 
 (test-group "We correctly identify stop-words"
   (test #t (is-stop-word? "about"))
@@ -62,18 +65,6 @@
   (test 
     "man stupid" 
     (remove-stop-words "is that man stupid")))
-
-(test-group "We find alliterations"
-  (test
-    "Bugs Bunny slow simple shuffle"
-    (get-alliterations "Bugs Bunny likes to dance the slow and simple shuffle"))
-  (test
-    "better bit butter"
-    (get-alliterations "You'll never put a better bit of butter on your knife"))
-  (test
-    "Peter Piper Picked Peck Pickled Peppers"
-    (get-alliterations "Peter Piper Picked a Peck of Pickled Peppers")))
-
 
 ;Improvements
 ; - Map string-contains over the sentence and stop-words instead of using is-stop-word?

@@ -69,68 +69,25 @@
 ;
 ;    The proof that the little prince existed is that he was charming, that he laughed,
 ;    and that he was looking for a sheep. If anybody wants a sheep, that is a proof that he exists.
+#lang racket
 
-(use test)
-
+(require rackunit)
 
 (define letters '(
   (#\a .
-   '("á" "ă" "ắ" "ặ" "ằ" "ẳ" "ẵ" "ǎ" "â" "ấ" "ậ" "ầ"
+   ("á" "ă" "ắ" "ặ" "ằ" "ẳ" "ẵ" "ǎ" "â" "ấ" "ậ" "à̀"
      "ẩ" "ẫ" "ä" "ạ" "à" "ả" "ā" "ą" "å" "ǻ" "ã" "ɑ"
      "ɐ" "ɒ"))
-  (#\b . '("ḅ" "ɓ" "ß" "♭" "␢" "Б"))
-  (#\c . '("ć" "č" "ç" "ĉ" "ɕ" "ċ"))
-  (#\d . '("ď" "ḓ" "ḍ" "ɗ" "ḏ" "đ" "ɖ"))))
-
-(define random-choice
-  (lambda (ls)
-    (list-ref ls (random (length ls)))))
-
-(define dict-value
-  (lambda (dict key)
-    (caddr (assoc key dict))))
-
-(define ruin-string
-  (lambda (sentence)
-    (let ((sentence (string->list sentence)) (ruined ""))
-      (map
-        string-append
-      (set! ruined "ert")
-      (display ruined)
-                                            
-
-      (string-append
-
-        (random-choice (dict-value letters #\c))
-        (random-choice (dict-value letters #\a))
-        (random-choice (dict-value letters #\b))
-      ))))
-
-(display (ruin-string "cab"))
-;(display (list? (dict-value letters #\a)))
-
-
-; tests
-(define test-list '(1 34 56 79))
-
-(test "It returns an element from the list"
-  #t
-  (number? (random-choice test-list)))
-
-;; ("d" .
-;   '(
-;; ("e" .
-;   '(éĕěêếệềểễëėẹèẻēęẽɘəɚ',
-;; ("f" .
-;   '(ƒſʃʆʅɟʄ',
-;; ("g" .
-;   '(ǵğǧģĝġɠḡɡ',
-;; ("h" .
-;   '(ḫĥḥɦẖħɧ',
-;; ("i" .
-;   '(íĭǐîïịìỉīįɨĩɩı',
-;; ("j" .
-;   '(ǰĵʝȷɟʄ',
+  (#\b . ("ḅ" "ɓ" "ß" "♭" "␢" "Б"))
+  (#\c . ("ć" "č" "ç" "ĉ" "ɕ" "ċ"))
+  (#\d . ("ď" "ḓ" "ḍ" "ɗ" "ḏ" "đ" "ɖ"))
+  (#\e . ("é" "ĕ" "ě" "ê" "ế" "ệ" "ề" "ể" "ễ" "ë"
+          "ė" "ẹ" "è" "ẻ" "ē" "ę" "ẽ" "ɘ" "ə" "ɚ"))
+  (#\f .  ("ƒ" "s" "ʃ" "ʆ" "ʅ" "ɟ" "ʄ"))
+  (#\g . ("ǵ" "ğ" "ǧ" "ģ" "ĝ" "ġ" "ɠ" "ḡ" "ɡ"))
+  (#\h . ("ḫ" "ĥ" "ḥ" "ɦ" "ẖ" "ħ" "ɧ"))
+  (#\i . ("í" "ĭ" "ǐ" "î" "ï" "ị" "ì" "ỉ" "ī" "į" "ɨ" "ĩ" "ɩ" "ı"))
+  (#\j . ("ǰ" "ĵ" "ʝ" "ȷ" "ɟ" "ʄ"))))
 ;; ("k" .
 ;   '(ķḳƙḵĸʞ',
 ;; ("l" .
@@ -163,57 +120,29 @@
 ;   '(ýŷÿẏỵỳƴỷȳỹʎ',
 ;; ("z" .
 ;   '(źžʑżẓẕʐƶ',
-;; ("A" .
-;   '(ÁĂẮẶẰẲẴǍÂẤẬẦẨẪÄẠÀẢĀĄÅǺÃ',
-;; ("B" .
-;   '(ḄƁᛒ𐌱ɃḂḆ฿β',
-;; ("C" .
-;   '(ĆČÇĈĊƆʗ',
-;; ("D" .
-;   '(ĎḒḌƊḎĐÐ',
-;; ("E" .
-;   '(ÉĔĚÊẾỆỀỂỄËĖẸÈẺĒĘẼƐ',
-;; ("F" .
-;   '(ƑḞ𐌅₣',
-;; ("G" .
-;   '(ǴĞǦĢĜĠḠʛ',
-;; ("H" .
-;   '(ḪĤḤĦ',
-;; ("I" .
-;   '(ÍĬǏÎÏİỊÌỈĪĮĨ',
-;; ("J" .
-;   '(ĴɈʝ',
-;; ("K" .
-;   '(ĶḲƘḴ',
-;; ("L" .
-;   '(ĹȽĽĻḼḶḸḺĿŁ',
-;; ("M" .
-;   '(ḾṀṂ',
-;; ("N" .
-;   '(ŃŇŅṊṄṆǸƝṈÑ',
-;; ("O" .
-;   '(ÓŎǑÔỐỘỒỔỖÖỌŐÒỎƠỚỢỜỞỠŌƟǪØǾÕ',
-;; ("P" .
-;   '(Þ𐌐ṔṖⱣƤ₱♇',
-;; ("Q" .
-;   '(ꝖɊ',
-;; ("R" .
-;   '(ŔŘŖṘṚṜṞʁ',
-;; ("S" .
-;   '(ŚŠŞŜȘṠṢ',
-;; ("T" .
-;   '(ŤŢṰȚṬṮŦ',
-;; ("U" .
-;   '(ÚŬǓÛÜǗǙǛǕỤŰÙỦƯỨỰỪỬỮŪŲŮŨ',
-;; ("V" .
-;   '(ṼṾƲ℣∨',
-;; ("W" .
-;   '(ẂŴẄẀʬ',
-;; ("X" .
-;   '(χẌẊⲬ𐍇',
-;; ("Y" .
-;   '(ÝŶŸẎỴỲƳỶȲỸ',
-;; ("Z" .
-;   '(ŹŽŻẒẔƵ'k
-;
+  
+  
 
+
+(define (random-choice ls)
+  (list-ref ls (random (length ls))))
+
+; Remove first character
+; (drop-left "hello") => "ello"
+(define (drop-left sentence)
+   (list->string (cdr (string->list sentence))))
+
+(define (scramble sentence)
+  (let ([sentence (string->list (string-downcase sentence))])
+    (if (null? sentence)
+        '()
+        (cons 
+          (random-choice (dict-ref letters (car sentence)))
+          (scramble (drop-left (list->string sentence)))))))
+
+(define (twist sentence)
+  (string-join (scramble sentence) ""))
+
+(twist "dig")
+    
+    

@@ -71,8 +71,6 @@
 ;    and that he was looking for a sheep. If anybody wants a sheep, that is a proof that he exists.
 #lang racket
 
-(require rackunit)
-
 (define letters '(
   (#\a .
    ("á" "ă" "ắ" "ặ" "ằ" "ẳ" "ẵ" "ǎ" "â" "ấ" "ậ" "à̀"
@@ -103,7 +101,9 @@
   (#\w . ("ẃ" "ŵ" "ẅ" "ẁ" "ʍ"))
   (#\x . ("χ" "ẍ" "ẋ" "ⲭ"))
   (#\y . ("ý" "ŷ" "ÿ" "ẏ" "ỵ" "ỳ" "ƴ" "ỷ" "ȳ" "ỹ" "ʎ"))
-  (#\z . ("ź" "ž" "ʑ" "ż" "ẓ" "ẕ" "ʐ" "ƶ"))))
+  (#\z . ("ź" "ž" "ʑ" "ż" "ẓ" "ẕ" "ʐ" "ƶ"))
+  (#\space . (" "))
+  ))
 
 
 (define (random-choice ls)
@@ -118,13 +118,16 @@
   (let ([sentence (string->list (string-downcase sentence))])
     (if (null? sentence)
         '()
-        (cons 
-          (random-choice (dict-ref letters (car sentence)))
+        (cons
+          (if (member (car sentence)(dict-keys letters))
+            (random-choice (dict-ref letters (car sentence)))
+            (string (car sentence)))
           (scramble (drop-left (list->string sentence)))))))
 
 (define (twist sentence)
   (string-join (scramble sentence) ""))
 
-(twist "dig")
+(twist "Boy, this challenge sure is fun.")
+(twist "For, after all, how do we know that two and two make four? Or that the force of gravity works? Or that the past is unchangeable? If both the past and the external world exist only in the mind, and if the mind itself is controllable – what then?")
     
     

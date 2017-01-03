@@ -1,5 +1,7 @@
 # Scheme challenges
 
+All files ending in `.ss` or `.scm` use Chicken Scheme. The rest are done in Racket.
+
 I use Chicken Scheme and the egg `test`. You'll need these two to run these programs:
 
 ```

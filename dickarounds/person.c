@@ -11,12 +11,16 @@ struct person create_person(int id, char *first_name, char *last_name);
 
 int main() {
 
-    struct person p = create_person(4, "Joe", "Reynolds");
-    struct person r = create_person(8, "Richard", "Smith");
+    struct person people[3] = {
+        create_person(1, "Joe", "Reynolds"),
+        create_person(2, "Michael", "Jones"),
+        create_person(3, "Richard", "Smith"),
+    };
 
-    print_person_details(&p);
-    print_person_details(&r);
-    
+    for (int i = 0; i < 3; i++) {
+        print_person_details(&people[i]);
+    }
+
     return 0;
 }
 
@@ -35,6 +39,3 @@ void print_person_details(struct person *p) {
     printf("Last Name: %s\n",p->last_name);
     printf("\n");
 }
-
-
-

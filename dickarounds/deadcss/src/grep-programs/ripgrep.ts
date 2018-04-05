@@ -2,16 +2,35 @@ const child_process = require("child_process");
 
 class RipGrep {
 
-    public run(cssFilePath: string)  {
-        const call = child_process.spawnSync("rg", ["-i", "^[#\.]", cssFilePath]);
-        const response = this.cleanCssSelectors(call.stdout.toString());
+    private readonly executable: string = "rg";
 
-        return response.split("\n");
+    public run(cssFilePath: string)  {
+        const call = child_process.spawnSync(this.executable, ["-i", "^[#\.]", cssFilePath]);
+        const callOutput = call.stdout.toString();
+        const response = this.cleanCssSelectors(callOutput);
+        const responseAsList = response.split("\n");
+        const finalResult = this.removePseudoSelectors(responseAsList);
+
+        return finalResult.filter(result => result !== "");
     }
 
-    private function cleanCssSelectors(response: string) {
-        const response = response.trim();
-        return response.replace(/\s*\{/g, "");
+    /**
+     * Gets all ids and classes from rg's output
+     */
+    public getSelectors(output: string) {
+        return output.split("\n");
+    }
+
+    /**
+     * Removes trailing spaces, }'s, #'s and .'s
+     */
+    private cleanCssSelectors(response: string) {
+        return response.replace(/(#|\.|\s*\{)/g, "");
+    }
+
+    private removePseudoSelectors(cssSelectors: string[]) {
+        const selectorMatch = /(:hover|:valid|:invalid)/g;
+        return cssSelectors.filter(cssSelector => !cssSelector.match(selectorMatch));
     }
 }
 

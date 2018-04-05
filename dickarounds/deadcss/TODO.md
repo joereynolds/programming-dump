@@ -1,2 +1,4 @@
 - But grep programs behind an interface
 - Write more tests
+- Use yarn instead
+- Use import { } syntax everywhere

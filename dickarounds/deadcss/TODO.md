@@ -2,3 +2,4 @@
 - Write more tests
 - Use yarn instead
 - Use import { } syntax everywhere
+- Put arrow parens rules in tslint.json

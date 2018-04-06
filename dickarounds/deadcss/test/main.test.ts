@@ -22,9 +22,8 @@ test("it strips out `#` and `.` from selectors", () => {
     expect(ripgrep.run("test/fixtures/test.css")).toEqual(expected);
 });
 
-// test("it only gets ids and classes", () => {
-//     const expected = ["#a-valid-id", ".a-valid-class"];
-//     const call = child_process.spawnSync("rg", ["-i", "^[#\.]", "test/fixtures/test.css"]);
-//     const ripgrep = new RipGrep();
-//     expect(ripgrep.getSelectors(call.stdout.toString())).toEqual(expected);
-// });
+test("it only gets ids and classes", () => {
+    const expected = ["#a-valid-id {", ".a-valid-class {"];
+    const ripgrep = new RipGrep();
+    expect(ripgrep.getSelectors("test/fixtures/test.css")).toEqual(expected);
+});

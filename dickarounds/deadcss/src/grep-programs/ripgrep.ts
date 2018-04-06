@@ -1,45 +1,44 @@
 const child_process = require("child_process");
+const fs = require("fs");
 
 class RipGrep {
 
     private readonly executable: string = "rg";
     private readonly ignoreCase: string = "-i";
-    private readonly selectorFilter: string = "^[#\.]";
 
     public run(cssFilePath: string): string[]  {
-        const call = child_process.spawnSync(
-            this.executable,
-            [
-                this.ignoreCase,
-                this.selectorFilter,
-                cssFilePath,
-            ],
-        );
-        const callOutput = call.stdout.toString();
-        const response = this.cleanCssSelectors(callOutput);
-        const responseAsList = response.split("\n");
-        const finalResult = this.removePseudoSelectors(responseAsList);
-
-        return finalResult.filter(result => result !== "");
+        const selectors = this.getSelectors(cssFilePath);
+        const cleanSelectors = this.cleanCssSelectors(selectors);
+        return cleanSelectors;
     }
 
-    /**
-     * Gets all ids and classes from rg's output
-     */
-    public getSelectors(output: string): string[]{
-        return output.split("\n");
+    public getSelectors(cssFilePath: string): string[] {
+        const fileContents: string = fs.readFileSync(cssFilePath, "utf8");
+
+        const selectors = fileContents.split("\n").filter(line => {
+            return (line.startsWith("#") || line.startsWith("."));
+        });
+
+        return selectors;
     }
 
-    /**
-     * Removes trailing spaces, }'s, #'s and .'s
-     */
-    private cleanCssSelectors(response: string): string {
-        return response.replace(/(#|\.|\s*\{)/g, "");
+    private cleanCssSelectors(selectors: string[]): string[] {
+        selectors = this.removeNoiseFromSelectors(selectors);
+        selectors = this.removePseudoSelectors(selectors);
+        return selectors.filter(selector => selector !== "");
     }
 
-    private removePseudoSelectors(cssSelectors: string[]): string[] {
+    private removeNoiseFromSelectors(selectors: string[]): string[] {
+        const cleanSelectors = selectors.map(selector => {
+            return selector.replace(/(#|\.|\s*\{)/g, "");
+        });
+
+        return cleanSelectors;
+    }
+
+    private removePseudoSelectors(selectors: string[]): string[] {
         const selectorMatch = /(:hover|:valid|:invalid)/g;
-        return cssSelectors.filter(cssSelector => !cssSelector.match(selectorMatch));
+        return selectors.filter(selector => !selector.match(selectorMatch));
     }
 }
 

@@ -3,9 +3,18 @@ const child_process = require("child_process");
 class RipGrep {
 
     private readonly executable: string = "rg";
+    private readonly ignoreCase: string = "-i";
+    private readonly selectorFilter: string = "^[#\.]";
 
     public run(cssFilePath: string)  {
-        const call = child_process.spawnSync(this.executable, ["-i", "^[#\.]", cssFilePath]);
+        const call = child_process.spawnSync(
+            this.executable,
+            [
+                this.ignoreCase,
+                this.selectorFilter,
+                cssFilePath,
+            ],
+        );
         const callOutput = call.stdout.toString();
         const response = this.cleanCssSelectors(callOutput);
         const responseAsList = response.split("\n");

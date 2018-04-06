@@ -6,7 +6,7 @@ class RipGrep {
     private readonly ignoreCase: string = "-i";
     private readonly selectorFilter: string = "^[#\.]";
 
-    public run(cssFilePath: string)  {
+    public run(cssFilePath: string): string[]  {
         const call = child_process.spawnSync(
             this.executable,
             [
@@ -26,18 +26,18 @@ class RipGrep {
     /**
      * Gets all ids and classes from rg's output
      */
-    public getSelectors(output: string) {
+    public getSelectors(output: string): string[]{
         return output.split("\n");
     }
 
     /**
      * Removes trailing spaces, }'s, #'s and .'s
      */
-    private cleanCssSelectors(response: string) {
+    private cleanCssSelectors(response: string): string {
         return response.replace(/(#|\.|\s*\{)/g, "");
     }
 
-    private removePseudoSelectors(cssSelectors: string[]) {
+    private removePseudoSelectors(cssSelectors: string[]): string[] {
         const selectorMatch = /(:hover|:valid|:invalid)/g;
         return cssSelectors.filter(cssSelector => !cssSelector.match(selectorMatch));
     }

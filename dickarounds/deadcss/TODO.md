@@ -5,3 +5,4 @@
 - Add travic ci
 - Add progressbar?
 - Add chalk for colored output
+- Change inital code to get all selectors to use node instead of ripgrep

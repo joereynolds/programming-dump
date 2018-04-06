@@ -1,4 +1,4 @@
-import { RipGrep } from "../src/grep-programs/ripgrep"
+import { RipGrep } from "../src/grep-programs/ripgrep";
 const child_process = require("child_process");
 
 test("jest is running correctly", () => {

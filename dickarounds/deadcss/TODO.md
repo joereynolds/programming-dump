@@ -3,3 +3,5 @@
 - Use yarn instead
 - Use import { } syntax everywhere
 - Add travic ci
+- Add progressbar?
+- Add chalk for colored output

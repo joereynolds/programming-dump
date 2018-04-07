@@ -7,10 +7,10 @@ class RipGrep {
     private readonly ignoreCase: string = "-i";
     private readonly filesToIgnore: string = "--iglob=!*.{css,scss}";
 
-    public run(cssFilePath: string): string[]  {
+    public run(cssFilePath: string, searchOnly: string = "."): string[]  {
         const selectors = this.getSelectors(cssFilePath);
         const cleanSelectors = this.cleanCssSelectors(selectors);
-        return cleanSelectors;
+        return this.findUsagesOfSelectors(searchOnly, cleanSelectors);
     }
 
     /**
@@ -42,8 +42,7 @@ class RipGrep {
      *     }
      * ]
      */
-    public findUsagesOfSelectors(selectors: string[]) {
-
+    public findUsagesOfSelectors(path: string, selectors: string[]) {
         const foundSelectors: any[] = [];
         selectors.forEach(selector => {
             const call = child_process.spawnSync(
@@ -52,7 +51,8 @@ class RipGrep {
                     this.ignoreCase,
                     this.filesToIgnore,
                     selector,
-                    "test/fixtures",
+                    path,
+                    // "--debug"
                 ],
                 {
                     stdio: "pipe",
@@ -66,6 +66,8 @@ class RipGrep {
             foundSelectors.push({
                 selector,
                 usages: listOfFiles.length,
+                foundIn: call.output[1],
+                // output: call.output
             });
         });
 

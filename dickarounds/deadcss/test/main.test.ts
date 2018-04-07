@@ -12,14 +12,18 @@ test("our grep program returns an object of results", () => {
 
 test("it ignores pseudoselectors", () => {
     const expected = ["a-valid-id"];
+    const input = ["a-valid-id-with-pseudo:hover", "a-valid-id"];
     const ripgrep = new RipGrep();
-    expect(ripgrep.run("test/fixtures/pseudoselector.css")).toEqual(expected);
+    const actual = ripgrep.cleanCssSelectors(input);
+    expect(expected).toEqual(actual);
 });
 
 test("it strips out `#` and `.` from selectors", () => {
     const expected = ["a-valid-id", "a-valid-class"];
+    const input = ["#a-valid-id", ".a-valid-class"];
     const ripgrep = new RipGrep();
-    expect(ripgrep.run("test/fixtures/test.css")).toEqual(expected);
+    const actual = ripgrep.cleanCssSelectors(input);
+    expect(expected).toEqual(actual);
 });
 
 test("it only gets ids and classes", () => {
@@ -35,9 +39,7 @@ const provider = [
             {
                 selector: "a-valid-id",
                 usages: 1,
-                // foundIn: [
-                //     "test/fixtures/test.html",
-                // ],
+                foundIn: "test/fixtures/test.html:<div id=\"a-valid-id another-valid-id\">\n"
             },
         ],
     },
@@ -47,6 +49,7 @@ const provider = [
             {
                 selector: "a-valid-class",
                 usages: 0,
+                foundIn: "",
             },
         ],
     },
@@ -54,9 +57,12 @@ const provider = [
 ];
 
 provider.forEach(provide => {
-    test(`it only finds used selectors for ${provide.input}`, () => {
+    test(`it reports findings for selector: ${provide.input}`, () => {
         const ripgrep = new RipGrep();
-        const actual = ripgrep.findUsagesOfSelectors([provide.input]);
+        const actual = ripgrep.findUsagesOfSelectors(
+            "test/fixtures",
+            [provide.input],
+        );
         expect(actual).toEqual(provide.expected);
     });
 

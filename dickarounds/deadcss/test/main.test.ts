@@ -27,3 +27,39 @@ test("it only gets ids and classes", () => {
     const ripgrep = new RipGrep();
     expect(ripgrep.getSelectors("test/fixtures/test.css")).toEqual(expected);
 });
+
+const provider = [
+    {
+        input: "a-valid-id",
+        expected: [
+            {
+                selector: "a-valid-id",
+                usages: 1,
+                // foundIn: [
+                //     "test/fixtures/test.html",
+                // ],
+            },
+        ],
+    },
+    {
+        input: "a-valid-class",
+        expected: [
+            {
+                selector: "a-valid-class",
+                usages: 0,
+            },
+        ],
+    },
+
+];
+
+provider.forEach(provide => {
+    test(`it only finds used selectors for ${provide.input}`, () => {
+        const ripgrep = new RipGrep();
+        const actual = ripgrep.findUsagesOfSelectors([provide.input]);
+        expect(actual).toEqual(provide.expected);
+    });
+
+});
+
+// Need a test that makes sure css files aren't in the list of found matches

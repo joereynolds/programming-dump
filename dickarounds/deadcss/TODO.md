@@ -1,8 +1,12 @@
 - But grep programs behind an interface
-- Write more tests
 - Use yarn instead
 - Use import { } syntax everywhere
 - Add travic ci
 - Add progressbar?
 - Add chalk for colored output
-- Change inital code to get all selectors to use node instead of ripgrep
+- Create a selector class, something like (pseudocode)
+
+class Selector {
+    public name: string;
+    public type: enum;  (id or class)
+}

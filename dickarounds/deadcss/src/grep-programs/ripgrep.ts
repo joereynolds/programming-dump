@@ -1,11 +1,12 @@
 const child_process = require("child_process");
 const fs = require("fs");
+import { IGrep } from "../interfaces/IGrep";
 
-class RipGrep {
+class RipGrep implements IGrep {
 
-    private readonly executable: string = "rg";
-    private readonly ignoreCase: string = "-i";
-    private readonly filesToIgnore: string = "--iglob=!*.{css,scss}";
+    public readonly executable: string = "rg";
+    public readonly ignoreCase: string = "-i";
+    public readonly filesToIgnore: string = "--iglob=!*.{css,scss}";
 
     public run(cssFilePath: string, searchOnly: string = "."): string[]  {
         const selectors = this.getSelectors(cssFilePath);

@@ -1,0 +1,48 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/80dbe5f/
+a	295-incomplete.rkt	/^(define a "dog")$/;"	f
+add-item	218.scm	/^(define add-item$/;"	f
+age	1.scm	/^(define age (number->string(read)))$/;"	f
+asc-digits	287.rkt	/^(define asc-digits$/;"	f
+asc-or-desc-sort	287.rkt	/^(define asc-or-desc-sort$/;"	f
+b	295-incomplete.rkt	/^(define b "cat")$/;"	f
+char->number	287.rkt	/^(define char->number$/;"	f
+delete-item	218.scm	/^(define delete-item$/;"	f
+desc-digits	287.rkt	/^(define desc-digits$/;"	f
+distance	138.rkt	/^(define (distance particle-a particle-b)$/;"	f
+drop-left	273.rkt	/^(define (drop-left sentence)$/;"	f
+force	138.rkt	/^(define (force particle-a particle-b)$/;"	f
+get-changes	295-incomplete.rkt	/^(define (get-changes from-word to-word)$/;"	f
+get-first-letter	288-incomplete.scm	/^(define get-first-letter$/;"	f
+get-letters	288-incomplete.scm	/^(define get-letters$/;"	f
+is-stop-word?	288-incomplete.scm	/^(define is-stop-word?$/;"	f
+iterations	287.rkt	/^(define iterations 0)$/;"	f
+kaprekar	287.rkt	/^(define kaprekar$/;"	f
+l	288-incomplete.scm	/^(define l$/;"	f
+largest-digit	287.rkt	/^(define largest-digit$/;"	f
+letters	273.rkt	/^(define letters '($/;"	f
+name	1.scm	/^(define name (symbol->string (read)))$/;"	f
+number->char	287.rkt	/^(define number->char$/;"	f
+number->list	287.rkt	/^(define number->list$/;"	f
+pad-string	287.rkt	/^(define pad-string$/;"	f
+particle-1	138.rkt	/^(define particle-1 (particle 1 -5.2 3.8))$/;"	f
+particle-2	138.rkt	/^(define particle-2 (particle 1 8.7 -4.1))$/;"	f
+particle-3	138.rkt	/^(define particle-3 (particle 4 0.04 -0.02))$/;"	f
+particle-4	138.rkt	/^(define particle-4 (particle 4 -0.02 -0.03))$/;"	f
+random-choice	273.rkt	/^(define (random-choice ls)$/;"	f
+remove-stop-words	288-incomplete.scm	/^(define remove-stop-words$/;"	f
+scramble	273.rkt	/^(define (scramble sentence)$/;"	f
+show-list	218.scm	/^(define show-list$/;"	f
+stop-words	288-incomplete.scm	/^(define stop-words '($/;"	f
+string-combine	295-incomplete.rkt	/^(define (string-combine first-word second-word)$/;"	f
+string-empty?	295-incomplete.rkt	/^(define (string-empty? word)$/;"	f
+string-first	295-incomplete.rkt	/^(define (string-first word)$/;"	f
+string-rest	295-incomplete.rkt	/^(define (string-rest word)$/;"	f
+todo	218.scm	/^(define todo '("eat breakfast" "take a shower"))$/;"	f
+twist	273.rkt	/^(define (twist sentence)$/;"	f
+user	1.scm	/^(define user (symbol->string(read)))$/;"	f

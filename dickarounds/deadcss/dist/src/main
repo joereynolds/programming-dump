@@ -1,0 +1,9 @@
+#!/usr/bin/env node
+"use strict";
+exports.__esModule = true;
+var ripgrep_1 = require("./grep-programs/ripgrep");
+var program = require("commander");
+var ripgrep = new ripgrep_1.RipGrep();
+program.parse(process.argv);
+console.log(ripgrep.run(program.args[0]));
+//# sourceMappingURL=main.js.map
